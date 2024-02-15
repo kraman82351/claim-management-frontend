@@ -1,26 +1,37 @@
 
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom' // Assuming you're using React Router
 
-function Login() {
+const Login = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
+    emailId: '',
     password: ''
   });
+  const [role, setRole] = useState('user'); // Default role is user
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      // Depending on the selected role, call the appropriate API endpoint
+      const url = role === 'admin' ? 'http://localhost:3000/adminlogin' : 'http://localhost:3000/userlogin';
+      const response = await axios.post(url, formData);
+      if(role === 'admin'){
+        navigate('/admin');
+      }else{
+        navigate('/user', { state: { emailId: formData.emailId } });
+      }
+      console.log(response.data); // Do something with the response
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
 
   return (
@@ -28,46 +39,78 @@ function Login() {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card">
+            <div className="card-header">
+              Login
+            </div>
             <div className="card-body">
-              <h2 className="card-title mb-4">Login</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">Email:</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    value={formData.email} 
-                    onChange={handleInputChange} 
-                    className="form-control" 
-                    required 
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="emailId"
+                    name="emailId"
+                    value={formData.emailId}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">Password:</label>
-                  <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    value={formData.password} 
-                    onChange={handleInputChange} 
-                    className="form-control" 
-                    required 
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
-                <div className="d-grid">
-                  <button type="submit" className="btn btn-primary">Login</button>
+                <div className="mb-3">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="role"
+                      id="userRole"
+                      value="user"
+                      checked={role === 'user'}
+                      onChange={() => setRole('user')}
+                    />
+                    <label className="form-check-label" htmlFor="userRole">
+                      User
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="role"
+                      id="adminRole"
+                      value="admin"
+                      checked={role === 'admin'}
+                      onChange={() => setRole('admin')}
+                    />
+                    <label className="form-check-label" htmlFor="adminRole">
+                      Admin
+                    </label>
+                  </div>
                 </div>
+                {role === 'user' && (
+                  <div className="mb-3">
+                    <p>Don't have an account? <Link to="/register">Register here</Link></p>
+                  </div>
+                )}
+                <button type="submit" className="btn btn-primary">Login</button>
               </form>
-              <div className="text-center mt-3">
-                <p>Don't have an account? <a href="/register">Register here</a></p>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Login;

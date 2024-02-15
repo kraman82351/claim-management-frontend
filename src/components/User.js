@@ -1,25 +1,38 @@
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 function User() {
-  // Sample user data
-  
-  const userData = {
-    name: 'John Doe',
-    email: 'john@example.com',
-    address: '123 Main St, City, Country'
-  };
+  const location = useLocation();
+  const { emailId } = location.state || {};
 
-  const handleAddInsurance = () => {
-    // Add insurance logic here
-    console.log('Add Insurance button clicked');
-  };
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleClaimInsurance = () => {
-    // Claim insurance logic here
-    console.log('Claim Insurance button clicked');
-  };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/user/${emailId}`);
+        setUserData(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [emailId]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="container mt-5">
@@ -30,13 +43,10 @@ function User() {
             <div className="card-body">
               <h2 className="card-title mb-4">User Details</h2>
               <div className="mb-3">
-                <strong>Name:</strong> {userData.name}
+                <strong>Name:</strong> {userData.fullName}
               </div>
               <div className="mb-3">
-                <strong>Email:</strong> {userData.email}
-              </div>
-              <div className="mb-3">
-                <strong>Address:</strong> {userData.address}
+                <strong>Email:</strong> {userData.emailId}
               </div>
             </div>
           </div>
@@ -66,8 +76,8 @@ function User() {
             <div className="card-body">
               <h2 className="card-title mb-4">Insurance Actions</h2>
               <div className="mb-3">
-                <button onClick={handleAddInsurance} className="btn btn-primary me-2">Add Insurance</button>
-                <button onClick={handleClaimInsurance} className="btn btn-primary">Claim Insurance</button>
+                <button className="btn btn-primary me-2">Add Insurance</button>
+                <button className="btn btn-primary">Claim Insurance</button>
               </div>
             </div>
           </div>
