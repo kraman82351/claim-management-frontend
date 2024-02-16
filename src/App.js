@@ -10,6 +10,8 @@ import Admin from './components/Admin';
 
 import PageNotFound from './components/PageNotFound';
 import ClaimInsurance from './components/ClaimInsurance';
+import AddInsurance from './components/AddInsurance';
+
 
 
 
@@ -22,6 +24,7 @@ export default function App() {
       <Route path='/user' element={<User/>} />
       <Route path='*' element={<PageNotFound/>} />
       <Route path='/home/claiminsurance' element={<ClaimInsurance/>} />
+      <Route path='/home/addInsurance' element={<AddInsurance/>} />
     </Routes>
   )
 }

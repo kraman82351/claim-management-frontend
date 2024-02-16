@@ -1,12 +1,37 @@
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function ClaimInsurance() {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { emailId, userId } = location.state || {};
+  
   const [formData, setFormData] = useState({
     insuranceId: '',
-    claimReason: '',
-    claimAmount: ''
+    reason: '',
+    claimedAmount: ''
   });
+
+  const [policies, setPolicies] = useState([]);
+  const [selectedInsuranceId, setSelectedInsuranceId] = useState('');
+
+  useEffect(() => {
+    const fetchPolicies = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/user/policies/${userId}`);
+        setPolicies(response.data);
+      } catch (error) {
+        console.log("Failed to retrieve Policies");
+      }
+    };
+
+    fetchPolicies();
+  }, []);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -16,8 +41,30 @@ function ClaimInsurance() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handlePolicySelect = (insuranceId) => {
+    setSelectedInsuranceId(insuranceId);
+    setFormData(prevState => ({
+      ...prevState,
+      insuranceId: insuranceId
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try{
+        const response = await axios.post('http://localhost:3000/home/claim_insurance', formData);
+        toast.success(response.data.message);
+        navigate('/user', { state: { emailId: emailId } });
+    }
+    catch(error){
+      if (error.response) {
+        console.log(error.response.data.message)
+        toast.error(error.response.data.message);
+      } else {
+        toast.error('An error occurred during sending claim request.');
+      }
+    }
     console.log('Form submitted:', formData);
     // Add logic to handle claim submission here
   };
@@ -29,23 +76,28 @@ function ClaimInsurance() {
           <h2 className="card-title mb-4">Claim Insurance</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="insuranceId" className="form-label">Insurance ID:</label>
-              <input 
-                type="text" 
-                id="insuranceId" 
-                name="insuranceId" 
-                value={formData.insuranceId} 
-                onChange={handleInputChange} 
-                className="form-control" 
-                required 
-              />
+              <label htmlFor="insuranceId" className="form-label">Select Policy:</label>
+              <select
+                id="insuranceId"
+                name="insuranceId"
+                value={selectedInsuranceId}
+                onChange={(e) => handlePolicySelect(e.target.value)}
+                className="form-control"
+              >
+                <option value="">-- Select Policy --</option>
+                {policies.map(policy => (
+                  <option key={policy.insuranceId} value={policy.insuranceId}>
+                      Policy Type: {policy.policyType} - Residual Amount: {policy.residualAmount} - Premium: {policy.premium} - Coverage Amount: {policy.coverageAmount}
+                  </option>
+              ))}
+              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="claimReason" className="form-label">Claim Reason:</label>
               <textarea 
                 id="claimReason" 
-                name="claimReason" 
-                value={formData.claimReason} 
+                name="reason" 
+                value={formData.reason} 
                 onChange={handleInputChange} 
                 className="form-control" 
                 required 
@@ -56,8 +108,8 @@ function ClaimInsurance() {
               <input 
                 type="text" 
                 id="claimAmount" 
-                name="claimAmount" 
-                value={formData.claimAmount} 
+                name="claimedAmount" 
+                value={formData.claimedAmount} 
                 onChange={handleInputChange} 
                 className="form-control" 
                 required 
@@ -72,4 +124,3 @@ function ClaimInsurance() {
 }
 
 export default ClaimInsurance;
-

@@ -1,13 +1,17 @@
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
 function User() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { emailId } = location.state || {};
 
   const [userData, setUserData] = useState(null);
+  const [policies, setPolicies] = useState([]);
+  const [claims, setClaims] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -23,8 +27,30 @@ function User() {
       }
     };
 
+    const fetchPoliciesAndClaims = async () => {
+      try {
+        const policiesResponse = await axios.get(`http://localhost:3000/user/policies/${emailId}`);
+        const claimsResponse = await axios.get(`http://localhost:3000/user/claims/${emailId}`);
+        setPolicies(policiesResponse.data);
+        setClaims(claimsResponse.data);
+      } catch (error) {
+        console.error('Error fetching policies and claims:', error);
+      }
+    };
+
     fetchUserData();
+    fetchPoliciesAndClaims();
   }, [emailId]);
+
+  const handleAddInsurance = () => {
+    // Add insurance logic here
+    navigate('/home/addInsurance', { state: { userId: userData.userId, emailId: emailId } });
+  };
+
+  const handleClaimInsurance = () => {
+    // Claim insurance logic here
+    navigate('/home/claiminsurance', { state: { userId: userData.userId, emailId: emailId } });
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -57,14 +83,18 @@ function User() {
                 <h4 className="mb-3">Insurance History</h4>
                 {/* Display insurance history */}
                 <ul className="list-group">
-                  <li className="list-group-item">No insurance history available</li>
+                  {policies.map(policy => (
+                    <li key={policy.id} className="list-group-item">{policy.name}</li>
+                  ))}
                 </ul>
               </div>
               <div>
                 <h4 className="mb-3">Claim History</h4>
                 {/* Display claim history */}
                 <ul className="list-group">
-                  <li className="list-group-item">No claim history available</li>
+                  {claims.map(claim => (
+                    <li key={claim.id} className="list-group-item">{claim.description}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -76,8 +106,8 @@ function User() {
             <div className="card-body">
               <h2 className="card-title mb-4">Insurance Actions</h2>
               <div className="mb-3">
-                <button className="btn btn-primary me-2">Add Insurance</button>
-                <button className="btn btn-primary">Claim Insurance</button>
+                <button onClick={handleAddInsurance} className="btn btn-primary me-2">Add Insurance</button>
+                <button onClick={handleClaimInsurance} className="btn btn-primary">Claim Insurance</button>
               </div>
             </div>
           </div>
