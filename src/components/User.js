@@ -1,4 +1,3 @@
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,13 +6,15 @@ import { useLocation } from 'react-router-dom';
 function User() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { emailId } = location.state || {};
+  const { emailId, userId } = location.state || {};
 
   const [userData, setUserData] = useState(null);
   const [policies, setPolicies] = useState([]);
   const [claims, setClaims] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showInsuranceHistory, setShowInsuranceHistory] = useState(false);
+  const [showClaimHistory, setShowClaimHistory] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -27,20 +28,8 @@ function User() {
       }
     };
 
-    const fetchPoliciesAndClaims = async () => {
-      try {
-        const policiesResponse = await axios.get(`http://localhost:3000/user/policies/${emailId}`);
-        const claimsResponse = await axios.get(`http://localhost:3000/user/claims/${emailId}`);
-        setPolicies(policiesResponse.data);
-        setClaims(claimsResponse.data);
-      } catch (error) {
-        console.error('Error fetching policies and claims:', error);
-      }
-    };
-
     fetchUserData();
-    fetchPoliciesAndClaims();
-  }, [emailId]);
+  }, []);
 
   const handleAddInsurance = () => {
     // Add insurance logic here
@@ -50,6 +39,35 @@ function User() {
   const handleClaimInsurance = () => {
     // Claim insurance logic here
     navigate('/home/claiminsurance', { state: { userId: userData.userId, emailId: emailId } });
+  };
+
+  const handleViewInsuranceHistory = async () => {
+    setShowInsuranceHistory(!showInsuranceHistory);
+    if (!showInsuranceHistory) {
+      try {
+        const policiesResponse = await axios.get(`http://localhost:3000/user/policies/${userId}`);
+        setPolicies(policiesResponse.data);
+      } catch (error) {
+        console.error('Error fetching policies:', error);
+      }
+    }
+  };
+
+  const handleViewClaimHistory = async () => {
+    setShowClaimHistory(!showClaimHistory);
+    if (!showClaimHistory) {
+      try {
+        const claimsResponse = await axios.get(`http://localhost:3000/user/claims/${userId}`);
+        setClaims(claimsResponse.data);
+      } catch (error) {
+        console.error('Error fetching claims:', error);
+      }
+    }
+  };
+
+  const handleLogout = () => {
+    // Logic for logout, navigate to root route
+    navigate('/');
   };
 
   if (loading) {
@@ -82,20 +100,26 @@ function User() {
               <div className="mb-4">
                 <h4 className="mb-3">Insurance History</h4>
                 {/* Display insurance history */}
-                <ul className="list-group">
-                  {policies.map(policy => (
-                    <li key={policy.id} className="list-group-item">{policy.name}</li>
-                  ))}
-                </ul>
+                {showInsuranceHistory && (
+                  <ul className="list-group">
+                    {policies.map(policy => (
+                      <li key={policy.insuranceId} className="list-group-item">Type : {policy.policyType}, Residual Amount: {policy.residualAmount}</li>
+                    ))}
+                  </ul>
+                )}
+                <button onClick={handleViewInsuranceHistory} className="btn btn-primary mt-3">View Insurance History</button>
               </div>
               <div>
                 <h4 className="mb-3">Claim History</h4>
                 {/* Display claim history */}
-                <ul className="list-group">
-                  {claims.map(claim => (
-                    <li key={claim.id} className="list-group-item">{claim.description}</li>
-                  ))}
-                </ul>
+                {showClaimHistory && (
+                  <ul className="list-group">
+                    {claims.map(claim => (
+                      <li key={claim.claimId} className="list-group-item">Claim Amount: {claim.claimedAmount}, Status: {claim.status}</li>
+                    ))}
+                  </ul>
+                )}
+                <button onClick={handleViewClaimHistory} className="btn btn-primary mt-3">View Claim History</button>
               </div>
             </div>
           </div>
@@ -109,6 +133,12 @@ function User() {
                 <button onClick={handleAddInsurance} className="btn btn-primary me-2">Add Insurance</button>
                 <button onClick={handleClaimInsurance} className="btn btn-primary">Claim Insurance</button>
               </div>
+            </div>
+          </div>
+          {/* Logout button */}
+          <div className="card mt-4">
+            <div className="card-body">
+              <button onClick={handleLogout} className="btn btn-danger">Logout</button>
             </div>
           </div>
         </div>

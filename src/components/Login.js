@@ -26,7 +26,7 @@ const Login = () => {
       if(role === 'admin'){
         navigate('/admin');
       }else{
-        navigate('/user', { state: { emailId: formData.emailId } });
+        navigate('/user', { state: { emailId: formData.emailId, userId: response.data.userId } });
       }
       console.log(response.data); // Do something with the response
     } catch (error) {
