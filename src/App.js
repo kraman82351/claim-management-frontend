@@ -1,6 +1,5 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom';
-
 import 'react-toastify/dist/ReactToastify.css';
 
 /** import all components */
@@ -13,7 +12,6 @@ import PageNotFound from './components/PageNotFound';
 import ClaimInsurance from './components/ClaimInsurance';
 import AddInsurance from './components/AddInsurance';
 import AddPolicy from './components/AddPolicy';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 

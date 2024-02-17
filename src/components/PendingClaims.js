@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 
 function PendingClaims() {
@@ -14,6 +14,7 @@ function PendingClaims() {
         const response = await axios.get('http://localhost:3000/admin/pending_claims');
         setPendingClaims(response.data);
       } catch (error) {
+        toast.error('Failed to retrieve Pending Claims')
         console.log("Failed to retrieve Pending Claims");
       }
     };
@@ -31,7 +32,7 @@ function PendingClaims() {
         claimId: selectedClaim.claimId,
         status: "Approved"
       });
-      toast.success(response.data.message);
+      toast.success("Claim Apporved");
       navigate('/admin');
     } catch (error) {
       handleError(error);
@@ -44,7 +45,7 @@ function PendingClaims() {
         claimId: selectedClaim.claimId,
         status: "Rejected"
       });
-      toast.success(response.data.message);
+      toast.success('claim Rejected');
       navigate('/admin');
     } catch (error) {
       handleError(error);
@@ -86,10 +87,11 @@ function PendingClaims() {
             </select>
           </div>
           {selectedClaim && (
-            <div>
-              <button type="button" className="btn btn-success mr-3" onClick={handleApprove}>Approve</button>
-              <button type="button" className="btn btn-danger" onClick={handleReject}>Reject</button>
-            </div>
+           <div className="d-flex justify-content-center align-items-center">
+           <button type="button" className="btn btn-outline-success mr-5" onClick={handleApprove}>Approve</button>
+           <button type="button" className="btn btn-outline-danger ml-5" onClick={handleReject}>Reject</button>
+           <Toaster/>
+         </div>
           )}
         </div>
       </div>

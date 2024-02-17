@@ -1,7 +1,7 @@
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function ClaimInsurance() {
@@ -54,8 +54,12 @@ function ClaimInsurance() {
 
     try{
         const response = await axios.post('http://localhost:3000/home/claim_insurance', formData);
-        toast.success(response.data.message);
-        navigate('/user', { state: { emailId: emailId } });
+        if(response.data.status == 200){
+          toast.success(response.data.message);
+          navigate('/user', { state: { emailId: emailId } });
+        }else{
+          toast.error('Claimed Amount is more than Residual amount');
+        }
     }
     catch(error){
       if (error.response) {
@@ -87,7 +91,7 @@ function ClaimInsurance() {
                 <option value="">-- Select Policy --</option>
                 {policies.map(policy => (
                   <option key={policy.insuranceId} value={policy.insuranceId}>
-                      Policy Type: {policy.policyType} - Residual Amount: {policy.residualAmount} - Premium: {policy.premium} - Coverage Amount: {policy.coverageAmount}
+                      Policy Type: {policy.policyType} - Residual Amount: {policy.residualAmount}- Coverage Amount: {policy.coverageAmount}
                   </option>
               ))}
               </select>
@@ -116,6 +120,7 @@ function ClaimInsurance() {
               />
             </div>
             <button type="submit" className="btn btn-primary">Request Claim</button>
+            <Toaster/>
           </form>
         </div>
       </div>

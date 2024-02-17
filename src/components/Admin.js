@@ -37,25 +37,50 @@ function Admin() {
   };
 
   return (
-    <div className="container mt-5 d-flex justify-content-center" style={{ maxWidth: '800px' }}>
-      <div className="card" style={{ width: '100%' }}>
-        <div className="card-body text-center" style={{ fontSize: '1.2rem', padding: '2rem' }}>
-          <h2 className="mb-4">Admin Dashboard</h2>
-          <div className="mb-4">
-            <strong className="mr-2">Total Members:</strong> {totalMembers}
+    <div
+      className="container mt-5 d-flex justify-content-center"
+      style={{ maxWidth: "800px" }}
+    >
+      
+      <div
+        className="card bg-light shadow rounded-lg"
+        style={{ width: "100%" }}
+      >
+        <div className="card-body text-center py-5 px-4">
+          <h2 className="h1 mb-4 text-primary">Admin Dashboard</h2>
+          <div className="mb-5">
+            <strong className="mr-2 font-weight-bold">Total Members:</strong>{" "}
+            {totalMembers}
           </div>
-          <div className="mb-4">
-            <strong className="mr-2">Total Policies:</strong> {totalPolicies}
+          <div className="mb-5">
+            <strong className="mr-2 font-weight-bold">Total Policies:</strong>{" "}
+            {totalPolicies}
           </div>
-          <div className="mb-4">
-            <strong className="mr-2">Total Claims:</strong> {totalClaims}
+          <div className="mb-5">
+            <strong className="mr-2 font-weight-bold">Total Claims:</strong>{" "}
+            {totalClaims}
           </div>
-          <Link to="/admin/pendingClaims" className="btn btn-primary btn-lg mr-3">Pending Claims</Link>
-          <button onClick={handleAddPolicy} className="btn btn-success btn-lg mr-3">Add New Policy</button>
-          <button onClick={handleLogout} className="btn btn-danger btn-lg">Logout</button>
+          <div className="mb-5 d-grid gap-3">
+            <Link
+              to="/admin/pendingClaims"
+              className="btn btn-outline-primary btn-lg"
+            >
+              Pending Claims
+            </Link>
+            <button
+              onClick={handleAddPolicy}
+              className="btn btn-outline-success btn-lg"
+            >
+              Add New Policy
+            </button>
+            <button onClick={handleLogout} className="btn btn-outline-danger btn-lg">
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </div>
+
 
   );
 }

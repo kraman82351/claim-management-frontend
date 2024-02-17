@@ -1,6 +1,7 @@
 
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
+import toast, { Toaster } from "react-hot-toast";
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom' // Assuming you're using React Router
 
@@ -24,12 +25,15 @@ const Login = () => {
       const url = role === 'admin' ? 'http://localhost:3000/adminlogin' : 'http://localhost:3000/userlogin';
       const response = await axios.post(url, formData);
       if(role === 'admin'){
+        toast.success('Admin login Successfully')
         navigate('/admin');
       }else{
+        toast.success('Login Successfully')
         navigate('/user', { state: { emailId: formData.emailId, userId: response.data.userId } });
       }
       console.log(response.data); // Do something with the response
     } catch (error) {
+      toast.error('Login failed');
       console.error('Login failed:', error);
     }
   };
@@ -39,8 +43,8 @@ const Login = () => {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card">
-            <div className="card-header">
-              Login
+            <div className="card-header text-center">
+            <h3 className="card-title mb-4" style={{ color: `#265073` }} >Login</h3>
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
@@ -103,7 +107,11 @@ const Login = () => {
                     <p>Don't have an account? <Link to="/register">Register here</Link></p>
                   </div>
                 )}
-                <button type="submit" className="btn btn-primary">Login</button>
+                <div className="mb-5 d-grid gap-3">
+                  <button type="submit" className="btn btn-outline-primary btn-lg">Login</button>
+                </div>
+                
+                <Toaster/>
               </form>
             </div>
           </div>

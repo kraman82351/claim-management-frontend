@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { Toaster } from 'react-hot-toast';
 
 function User() {
   const location = useLocation();
@@ -71,7 +73,7 @@ function User() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...<Toaster/></div>;
   }
 
   if (error) {
@@ -79,11 +81,25 @@ function User() {
   }
 
   return (
+    
     <div className="container mt-5">
-      <div className="row">
+      <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+        <div className="container-fluid">
+          <a className="navbar-brand font-weight-bold" href="#">Claim Management System</a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <form className="d-flex">
+              <button onClick={handleLogout} className="btn btn-outline-danger" type="button">Logout</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <div className="row mt-4">
         {/* User details */}
         <div className="col-md-6">
-          <div className="card mb-4">
+          <div className="card">
             <div className="card-body">
               <h2 className="card-title mb-4">User Details</h2>
               <div className="mb-3">
@@ -94,7 +110,7 @@ function User() {
               </div>
             </div>
           </div>
-          <div className="card">
+          <div className="card mt-4">
             <div className="card-body">
               <h2 className="card-title mb-4">History</h2>
               <div className="mb-4">
@@ -107,7 +123,7 @@ function User() {
                     ))}
                   </ul>
                 )}
-                <button onClick={handleViewInsuranceHistory} className="btn btn-primary mt-3">View Insurance History</button>
+                <button onClick={handleViewInsuranceHistory} className="btn btn-outline-primary mt-3">View Insurance History</button>
               </div>
               <div>
                 <h4 className="mb-3">Claim History</h4>
@@ -119,7 +135,7 @@ function User() {
                     ))}
                   </ul>
                 )}
-                <button onClick={handleViewClaimHistory} className="btn btn-primary mt-3">View Claim History</button>
+                <button onClick={handleViewClaimHistory} className="btn btn-outline-primary mt-3">View Claim History</button>
               </div>
             </div>
           </div>
@@ -130,20 +146,15 @@ function User() {
             <div className="card-body">
               <h2 className="card-title mb-4">Insurance Actions</h2>
               <div className="mb-3">
-                <button onClick={handleAddInsurance} className="btn btn-primary me-2">Add Insurance</button>
-                <button onClick={handleClaimInsurance} className="btn btn-primary">Claim Insurance</button>
+                <button onClick={handleAddInsurance} className="btn btn-outline-primary me-2">Add Insurance</button>
+                <button onClick={handleClaimInsurance} className="btn btn-outline-primary">Claim Insurance</button>
               </div>
-            </div>
-          </div>
-          {/* Logout button */}
-          <div className="card mt-4">
-            <div className="card-body">
-              <button onClick={handleLogout} className="btn btn-danger">Logout</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   );
 }
 
