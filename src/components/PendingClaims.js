@@ -28,7 +28,7 @@ function PendingClaims() {
 
   const handleApprove = async () => {
     try {
-      const response = await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
+        await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
         claimId: selectedClaim.claimId,
         status: "Approved"
       });
@@ -41,7 +41,7 @@ function PendingClaims() {
 
   const handleReject = async () => {
     try {
-      const response = await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
+        await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
         claimId: selectedClaim.claimId,
         status: "Rejected"
       });

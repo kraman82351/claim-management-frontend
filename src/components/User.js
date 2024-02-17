@@ -31,7 +31,7 @@ function User() {
     };
 
     fetchUserData();
-  }, []);
+  }, [emailId]);
 
   const handleAddInsurance = () => {
     // Add insurance logic here
@@ -85,7 +85,7 @@ function User() {
     <div className="container mt-5">
       <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand font-weight-bold" href="#">Claim Management System</a>
+          <h3 className="navbar-brand font-weight-bold" >Claim Management System</h3>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>

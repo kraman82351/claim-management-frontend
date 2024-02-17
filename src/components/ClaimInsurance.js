@@ -30,7 +30,7 @@ function ClaimInsurance() {
     };
 
     fetchPolicies();
-  }, []);
+  }, [userId]);
 
 
   const handleInputChange = (e) => {
@@ -54,7 +54,7 @@ function ClaimInsurance() {
 
     try{
         const response = await axios.post('https://claim-management-system.onrender.com/home/claim_insurance', formData);
-        if(response.data.status == 200){
+        if(response.data.status === 200){
           toast.success(response.data.message);
           navigate('/user', { state: { emailId: emailId } });
         }else{
