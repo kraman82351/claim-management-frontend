@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import toast, { Toaster } from "react-hot-toast";
 import axios from 'axios';
 
 function AddPolicy() {
@@ -24,9 +25,11 @@ function AddPolicy() {
     try {
       // Send a POST request to add the policy
       await axios.post('http://localhost:3000/admin/add_policy', policyData);
+      toast.success('Policy added successfully');
       // Navigate back to the admin route upon successful addition
       navigate('/admin');
     } catch (error) {
+      toast.error('Error adding policy')
       console.error('Error adding policy:', error);
     }
   };
@@ -52,6 +55,7 @@ function AddPolicy() {
           <input type="text" className="form-control" id="premium" name="premium" value={policyData.premium} onChange={handleChange} required />
         </div>
         <button type="submit" className="btn btn-primary">Add Policy</button>
+        <Toaster/>
         <Link to="/admin" className="btn btn-secondary ms-2">Cancel</Link>
       </form>
     </div>

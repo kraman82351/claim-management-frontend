@@ -27,7 +27,7 @@ function Register() {
 
     try {
       const response = await axios.post('http://localhost:3000/register', formData);
-      toast.success(response.data.message);
+      toast.success('Register Sucessfully');
       // Clear form fields upon successful registration
       setFormData({
         fullName: '',
@@ -104,6 +104,7 @@ function Register() {
                 </div>
                 <div className="d-grid">
                   <button type="submit" className="btn btn-primary" >Register</button>
+                  <Toaster/>
                 </div>
               </form>
             </div>
@@ -111,6 +112,7 @@ function Register() {
         </div>
       </div>
     </div>
+    
   );
 }
 export default Register;
