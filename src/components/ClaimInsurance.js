@@ -72,12 +72,12 @@ function ClaimInsurance() {
     console.log('Form submitted:', formData);
     // Add logic to handle claim submission here
   };
-
+  
   return (
     <div className="container mt-5">
-      <div className="card">
+      <div className="card" style={{ backgroundColor: `#DCF2F1` }}>
         <div className="card-body">
-          <h2 className="card-title mb-4">Claim Insurance</h2>
+          <h2 className="card-title mb-4 text-center" style={{ color: '#2D9596' }}>Claim Insurance</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="insuranceId" className="form-label">Select Policy:</label>

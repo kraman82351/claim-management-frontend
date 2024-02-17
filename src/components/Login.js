@@ -25,16 +25,14 @@ const Login = () => {
       const url = role === 'admin' ? 'https://claim-management-system.onrender.com/adminlogin' : 'https://claim-management-system.onrender.com/userlogin';
       const response = await axios.post(url, formData);
       if(role === 'admin'){
-        toast.success('Admin login Successfully')
+        toast.success('Admin Login Successful');
         navigate('/admin');
       }else{
-        toast.success('Login Successfully')
+        toast.success('Login Successful');
         navigate('/user', { state: { emailId: formData.emailId, userId: response.data.userId } });
       }
-      console.log(response.data); // Do something with the response
-    } catch (error) {
-      toast.error('Login failed');
-      console.error('Login failed:', error);
+    } catch (error) {        
+        toast.error('Login failed');
     }
   };
 
@@ -42,9 +40,9 @@ const Login = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div className="card">
-            <div className="card-header text-center">
-            <h3 className="card-title mb-4" style={{ color: `#265073` }} >Login</h3>
+          <div className="card" >
+            <div className="card-header text-center" style={{ backgroundColor: `#265073` }}>
+            <h2 className="card-title mb-2" style={{ color: 'white' }} >Login</h2>
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>

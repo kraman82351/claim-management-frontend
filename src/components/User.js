@@ -79,29 +79,29 @@ function User() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
+ 
   return (
-    
-    <div className="container mt-5">
-      <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+   
+    <div className="container mt-5 text-center">
+      <nav className="navbar navbar-expand-lg " style={{ backgroundColor: `#265073` }} >
         <div className="container-fluid">
-          <h3 className="navbar-brand font-weight-bold" >Claim Management System</h3>
+          <h3 className="navbar-brand font-weight-bold" style={{ color: 'white' }}>Claim Management System</h3>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
             <form className="d-flex">
-              <button onClick={handleLogout} className="btn btn-outline-danger" type="button">Logout</button>
+              <button onClick={handleLogout} className="btn btn-danger" type="button">Logout</button>
             </form>
           </div>
         </div>
       </nav>
       <div className="row mt-4">
         {/* User details */}
-        <div className="col-md-6">
-          <div className="card">
+        <div className="col-md-6" >
+          <div className="card" style={{ backgroundColor: `#DCF2F1` }}>
             <div className="card-body">
-              <h2 className="card-title mb-4">User Details</h2>
+              <h4 className="card-title mb-4" style={{ color: '#2D9596' }}>User Details</h4>
               <div className="mb-3">
                 <strong>Name:</strong> {userData.fullName}
               </div>
@@ -110,11 +110,11 @@ function User() {
               </div>
             </div>
           </div>
-          <div className="card mt-4">
+          <div className="card mt-4" style={{ backgroundColor: `#DCF2F1` }}>
             <div className="card-body">
-              <h2 className="card-title mb-4">History</h2>
-              <div className="mb-4">
-                <h4 className="mb-3">Insurance History</h4>
+              <h4 className="card-title mb-3" style={{ color: '#2D9596' }}>History</h4>
+              <div className="mb-3">
+                <h5 className="mb-2">Insurance History</h5>
                 {/* Display insurance history */}
                 {showInsuranceHistory && (
                   <ul className="list-group">
@@ -123,10 +123,10 @@ function User() {
                     ))}
                   </ul>
                 )}
-                <button onClick={handleViewInsuranceHistory} className="btn btn-outline-primary mt-3">View Insurance History</button>
+                <button onClick={handleViewInsuranceHistory} className="btn btn-outline-primary mt-2">View Insurance History</button>
               </div>
               <div>
-                <h4 className="mb-3">Claim History</h4>
+                <h5 className="mb-2">Claim History</h5>
                 {/* Display claim history */}
                 {showClaimHistory && (
                   <ul className="list-group">
@@ -135,16 +135,16 @@ function User() {
                     ))}
                   </ul>
                 )}
-                <button onClick={handleViewClaimHistory} className="btn btn-outline-primary mt-3">View Claim History</button>
+                <button onClick={handleViewClaimHistory} className="btn btn-outline-primary mt-2">View Claim History</button>
               </div>
             </div>
           </div>
         </div>
         {/* Buttons for adding and claiming insurance */}
         <div className="col-md-6">
-          <div className="card">
+          <div className="card" style={{ backgroundColor: `#DCF2F1` }}>
             <div className="card-body">
-              <h2 className="card-title mb-4">Insurance Actions</h2>
+              <h4 className="card-title mb-4" style={{ color: '#2D9596' }}>Insurance Actions</h4>
               <div className="mb-3">
                 <button onClick={handleAddInsurance} className="btn btn-outline-primary me-2">Add Insurance</button>
                 <button onClick={handleClaimInsurance} className="btn btn-outline-primary">Claim Insurance</button>

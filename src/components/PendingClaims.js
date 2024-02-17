@@ -12,10 +12,9 @@ function PendingClaims() {
     const fetchPendingClaims = async () => {
       try {
         const response = await axios.get('https://claim-management-system.onrender.com/admin/pending_claims');
-        setPendingClaims(response.data);
+          setPendingClaims(response.data);
       } catch (error) {
         toast.error('Failed to retrieve Pending Claims')
-        console.log("Failed to retrieve Pending Claims");
       }
     };
 
@@ -28,11 +27,15 @@ function PendingClaims() {
 
   const handleApprove = async () => {
     try {
-        await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
+        const response = await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
         claimId: selectedClaim.claimId,
         status: "Approved"
       });
-      toast.success("Claim Apporved");
+      toast.promise(response, {
+        loading: 'Creating...',
+        success : <b>Claim Approved...!</b>,
+        error : <b>Server Error</b>
+      });
       navigate('/admin');
     } catch (error) {
       handleError(error);
@@ -41,11 +44,15 @@ function PendingClaims() {
 
   const handleReject = async () => {
     try {
-        await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
+        const response = await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
         claimId: selectedClaim.claimId,
         status: "Rejected"
       });
-      toast.success('claim Rejected');
+      toast.promise(response, {
+        loading: 'Creating...',
+        success : <b>Claim Rejected...!</b>,
+        error : <b>Server Error</b>
+      });
       navigate('/admin');
     } catch (error) {
       handleError(error);
@@ -54,7 +61,6 @@ function PendingClaims() {
 
   const handleError = (error) => {
     if (error.response) {
-      console.log(error.response.data.message);
       toast.error(error.response.data.message);
     } else {
       toast.error('An error occurred during sending claim request.');
@@ -65,7 +71,7 @@ function PendingClaims() {
     <div className="container mt-5">
       <div className="card">
         <div className="card-body">
-          <h2 className="card-title mb-4">Pending Claims</h2>
+          <h2 className="card-title mb-4" style={{ color: '#2D9596' }}>Pending Claims</h2>
           <div className="mb-3">
             <label htmlFor="claimId" className="form-label">Select claim:</label>
             <select

@@ -36,10 +36,10 @@ function AddPolicy() {
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">Add Policy</h2>
+      <h2 className="mb-4" style={{ color: '#2D9596' }}>Add Policy</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="policyNumber" className="form-label">Policy Number</label>
+          <label htmlFor="policyNumber" className="form-label" >Policy Number</label>
           <input type="text" className="form-control" id="policyNumber" name="policyNumber" value={policyData.policyNumber} onChange={handleChange} required />
         </div>
         <div className="mb-3">

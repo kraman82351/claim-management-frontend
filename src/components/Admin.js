@@ -39,26 +39,39 @@ function Admin() {
   return (
     <div
       className="container mt-5 d-flex justify-content-center"
-      style={{ maxWidth: "800px" }}
+      style={{ maxWidth: "800px" ,maxHeight:"800px"}}
     >
-      
+      <nav className="navbar navbar-expand-lg " style={{ backgroundColor: `#265073` }} >
+        <div className="container-fluid">
+          <h1 className="navbar-brand font-weight-bold" style={{ color: 'white' }}>Claim Management System</h1>
+        </div>
+      </nav>
       <div
         className="card bg-light shadow rounded-lg"
-        style={{ width: "100%" }}
+        style={{ width: "80%", height: "80%"}}
       >
-        <div className="card-body text-center py-5 px-4">
-          <h2 className="h1 mb-4 text-primary">Admin Dashboard</h2>
+        <div className="card-body text-center py-5 px-4" style={{ backgroundColor: `#DCF2F1` }}>
+          <h2 className="h1 mb-4 " style={{ color: '#2D9596' }}>Admin Dashboard</h2>
           <div className="mb-5">
+            <h4>
             <strong className="mr-2 font-weight-bold">Total Members:</strong>{" "}
             {totalMembers}
+            </h4>
+            
           </div>
           <div className="mb-5">
+            <h4>
             <strong className="mr-2 font-weight-bold">Total Policies:</strong>{" "}
             {totalPolicies}
+            </h4>
+            
           </div>
           <div className="mb-5">
+            <h4>
             <strong className="mr-2 font-weight-bold">Total Claims:</strong>{" "}
             {totalClaims}
+            </h4>
+            
           </div>
           <div className="mb-5 d-grid gap-3">
             <Link
