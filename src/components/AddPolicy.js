@@ -24,7 +24,7 @@ function AddPolicy() {
     e.preventDefault();
     try {
       // Send a POST request to add the policy
-      await axios.post('http://localhost:3000/admin/add_policy', policyData);
+      await axios.post('https://claim-management-system.onrender.com/admin/add_policy', policyData);
       toast.success('Policy added successfully');
       // Navigate back to the admin route upon successful addition
       navigate('/admin');

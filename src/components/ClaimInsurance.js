@@ -22,7 +22,7 @@ function ClaimInsurance() {
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/user/policies/${userId}`);
+        const response = await axios.get(`https://claim-management-system.onrender.com/user/policies/${userId}`);
         setPolicies(response.data);
       } catch (error) {
         console.log("Failed to retrieve Policies");
@@ -53,7 +53,7 @@ function ClaimInsurance() {
     e.preventDefault();
 
     try{
-        const response = await axios.post('http://localhost:3000/home/claim_insurance', formData);
+        const response = await axios.post('https://claim-management-system.onrender.com/home/claim_insurance', formData);
         if(response.data.status == 200){
           toast.success(response.data.message);
           navigate('/user', { state: { emailId: emailId } });

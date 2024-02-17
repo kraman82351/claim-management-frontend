@@ -26,7 +26,7 @@ function Register() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/register', formData);
+      const response = await axios.post('https://claim-management-system.onrender.com/register', formData);
       toast.success('Register Sucessfully');
       // Clear form fields upon successful registration
       setFormData({

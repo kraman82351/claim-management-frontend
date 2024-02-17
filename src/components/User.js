@@ -21,7 +21,7 @@ function User() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/user/${emailId}`);
+        const response = await axios.get(`https://claim-management-system.onrender.com/user/${emailId}`);
         setUserData(response.data);
         setLoading(false);
       } catch (error) {
@@ -47,7 +47,7 @@ function User() {
     setShowInsuranceHistory(!showInsuranceHistory);
     if (!showInsuranceHistory) {
       try {
-        const policiesResponse = await axios.get(`http://localhost:3000/user/policies/${userId}`);
+        const policiesResponse = await axios.get(`https://claim-management-system.onrender.com/user/policies/${userId}`);
         setPolicies(policiesResponse.data);
       } catch (error) {
         console.error('Error fetching policies:', error);
@@ -59,7 +59,7 @@ function User() {
     setShowClaimHistory(!showClaimHistory);
     if (!showClaimHistory) {
       try {
-        const claimsResponse = await axios.get(`http://localhost:3000/user/claims/${userId}`);
+        const claimsResponse = await axios.get(`https://claim-management-system.onrender.com/user/claims/${userId}`);
         setClaims(claimsResponse.data);
       } catch (error) {
         console.error('Error fetching claims:', error);

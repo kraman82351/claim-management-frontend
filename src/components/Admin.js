@@ -12,7 +12,7 @@ function Admin() {
     // Fetch admin data when component mounts
     const fetchAdminData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/admin/getcount');
+        const response = await axios.get('https://claim-management-system.onrender.com/admin/getcount');
         const adminData = response.data;
 
         setTotalMembers(adminData.totalUsers);
