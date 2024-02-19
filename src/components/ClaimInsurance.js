@@ -76,8 +76,11 @@ function ClaimInsurance() {
   return (
     <div className="container mt-5">
       <div className="card" style={{ backgroundColor: `#DCF2F1` }}>
+      <div className="card-header text-center" style={{ backgroundColor: `#265073` }}>
+            <h2 className="card-title mb-2" style={{ color: 'white' }} >Claim Insurance</h2>
+            </div>
         <div className="card-body">
-          <h2 className="card-title mb-4 text-center" style={{ color: '#2D9596' }}>Claim Insurance</h2>
+          
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="insuranceId" className="form-label">Select Policy:</label>

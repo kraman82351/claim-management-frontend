@@ -51,8 +51,10 @@ function Register() {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card">
+          <div className="card-header text-center" style={{ backgroundColor: `#265073` }}>
+            <h2 className="card-title mb-2" style={{ color: 'white' }} >Register</h2>
+            </div>
             <div className="card-body">
-              <h2 className="card-title mb-4" style={{ color: '#2D9596' }} >Register</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="fullName" className="form-label">Full Name:</label>
