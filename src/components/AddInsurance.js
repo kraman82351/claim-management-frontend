@@ -69,7 +69,7 @@ function AddInsurance() {
                 ))}
               </select>
             </div>
-            <button type="submit" className="btn btn-primary btn-block font-weight-bold mt-3">Request Claim</button>
+            <button type="submit" className="btn btn-primary btn-block font-weight-bold mt-3">Add Insurance</button>
             <Toaster/>
           </form>
         </div>

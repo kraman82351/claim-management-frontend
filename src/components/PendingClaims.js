@@ -69,9 +69,9 @@ function PendingClaims() {
 
   return (
     <div className="container mt-5">
-      <div className="card">
-        <div className="card-body">
-          <h2 className="card-title mb-4" style={{ color: '#2D9596' }}>Pending Claims</h2>
+      <div className="card " style={{ backgroundColor: `#DCF2F1` }}>
+        <div className="card-body text-center">
+          <h2 className="card-title text-center mb-4" style={{ color: '#2D9596' }}>Pending Claims</h2>
           <div className="mb-3">
             <label htmlFor="claimId" className="form-label">Select claim:</label>
             <select
@@ -94,8 +94,8 @@ function PendingClaims() {
           </div>
           {selectedClaim && (
            <div className="d-flex justify-content-center align-items-center">
-           <button type="button" className="btn btn-outline-success mr-5" onClick={handleApprove}>Approve</button>
-           <button type="button" className="btn btn-outline-danger ml-5" onClick={handleReject}>Reject</button>
+           <button type="button" className="btn btn-outline-success mr-3" onClick={handleApprove}>Approve</button>
+           <button type="button" className="btn btn-outline-danger ml-3" onClick={handleReject}>Reject</button>
            <Toaster/>
          </div>
           )}
