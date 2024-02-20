@@ -13,7 +13,7 @@ function AddInsurance() {
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/home/add_insurance');
+        const response = await axios.get('https://claim-management-system.onrender.com/home/add_insurance');
         setAvailablePolicies(response.data);
       } catch (error) {
         console.log("Failed to retrieve Policies");
@@ -31,7 +31,7 @@ function AddInsurance() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/home/add_insurance', {
+      const response = await axios.post('https://claim-management-system.onrender.com/home/add_insurance', {
         userId: userId,
         policyNumber: selectedPolicyNumber
       });
@@ -48,12 +48,12 @@ function AddInsurance() {
 
   return (
     <div className="container rounded border p-3 mt-5">
-      <div className="card border ">
-        <div className="card-body">
-          <h2 className="card-title text-center h3 font-weight-bold mb-4">Add Insurance</h2>
+      <div className="card border" style={{ backgroundColor: `#DCF2F1` }}>
+        <div className="card-body" >
+          <h2 className="card-title text-center h3 font-weight-bold mb-4" style={{ color: '#2D9596' }}>Add Insurance</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group mb-3">
-              <label htmlFor="policyNumber" className="form-label-control">Select Policy:</label>
+              <label htmlFor="policyNumber" className="form-label-control"><b> Select Policy:</b></label>
               <select
                 id="policyNumber"
                 name="policyNumber"

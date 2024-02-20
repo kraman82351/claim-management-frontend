@@ -24,7 +24,7 @@ function AddPolicy() {
     e.preventDefault();
     try {
       // Send a POST request to add the policy
-      await axios.post('http://localhost:3000/admin/add_policy', policyData);
+      await axios.post('https://claim-management-system.onrender.com/admin/add_policy', policyData);
       toast.success('Policy added successfully');
       // Navigate back to the admin route upon successful addition
       navigate('/admin');
@@ -36,10 +36,10 @@ function AddPolicy() {
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">Add Policy</h2>
+      <h2 className="mb-4" style={{ color: '#2D9596' }}>Add Policy</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="policyNumber" className="form-label">Policy Number</label>
+          <label htmlFor="policyNumber" className="form-label" >Policy Number</label>
           <input type="text" className="form-control" id="policyNumber" name="policyNumber" value={policyData.policyNumber} onChange={handleChange} required />
         </div>
         <div className="mb-3">

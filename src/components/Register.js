@@ -26,8 +26,8 @@ function Register() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/register', formData);
-      toast.success('Register Sucessfully');
+      await axios.post('https://claim-management-system.onrender.com/register', formData);
+      toast.success('Registered Successfully');
       // Clear form fields upon successful registration
       setFormData({
         fullName: '',
@@ -52,7 +52,7 @@ function Register() {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h2 className="card-title mb-4">Register</h2>
+              <h2 className="card-title mb-4" style={{ color: '#2D9596' }} >Register</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="fullName" className="form-label">Full Name:</label>
