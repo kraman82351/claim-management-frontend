@@ -12,7 +12,7 @@ function Admin() {
     // Fetch admin data when component mounts
     const fetchAdminData = async () => {
       try {
-        const response = await axios.get('https://claim-management-system.onrender.com/admin/getcount');
+        const response = await axios.get('https://bff-ymzy.onrender.com/admin/getcount');
         const adminData = response.data;
 
         setTotalMembers(adminData.totalUsers);
@@ -48,7 +48,7 @@ function Admin() {
       </nav>
       <div
         className="card bg-light shadow rounded-lg"
-        style={{ width: "80%", height: "80%"}}
+        style={{ width: "80%", height: "81%"}}
       >
         <div className="card-body text-center py-5 px-4" style={{ backgroundColor: `#DCF2F1` }}>
           <h2 className="h1 mb-4 " style={{ color: '#2D9596' }}>Admin Dashboard</h2>

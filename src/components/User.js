@@ -21,7 +21,7 @@ function User() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`https://claim-management-system.onrender.com/user/${emailId}`);
+        const response = await axios.get(`https://bff-ymzy.onrender.com/user/${emailId}`);
         setUserData(response.data);
         setLoading(false);
       } catch (error) {
@@ -47,7 +47,7 @@ function User() {
     setShowInsuranceHistory(!showInsuranceHistory);
     if (!showInsuranceHistory) {
       try {
-        const policiesResponse = await axios.get(`https://claim-management-system.onrender.com/user/policies/${userId}`);
+        const policiesResponse = await axios.get(`https://bff-ymzy.onrender.com/user/policies/${userId}`);
         setPolicies(policiesResponse.data);
       } catch (error) {
         console.error('Error fetching policies:', error);
@@ -59,7 +59,7 @@ function User() {
     setShowClaimHistory(!showClaimHistory);
     if (!showClaimHistory) {
       try {
-        const claimsResponse = await axios.get(`https://claim-management-system.onrender.com/user/claims/${userId}`);
+        const claimsResponse = await axios.get(`https://bff-ymzy.onrender.com/user/claims/${userId}`);
         setClaims(claimsResponse.data);
       } catch (error) {
         console.error('Error fetching claims:', error);
@@ -82,21 +82,14 @@ function User() {
  
   return (
    
-    <div className="container mt-5 text-center">
+    <div className="container mt-2 text-center">
       <nav className="navbar navbar-expand-lg " style={{ backgroundColor: `#265073` }} >
         <div className="container-fluid">
           <h3 className="navbar-brand font-weight-bold" style={{ color: 'white' }}>Claim Management System</h3>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <form className="d-flex">
               <button onClick={handleLogout} className="btn btn-danger" type="button">Logout</button>
-            </form>
-          </div>
         </div>
       </nav>
-      <div className="row mt-4">
+      <div className="row mb-4 mt-4">
         {/* User details */}
         <div className="col-md-6" >
           <div className="card" style={{ backgroundColor: `#DCF2F1` }}>

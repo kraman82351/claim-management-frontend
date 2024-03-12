@@ -22,7 +22,7 @@ function ClaimInsurance() {
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
-        const response = await axios.get(`https://claim-management-system.onrender.com/user/policies/${userId}`);
+        const response = await axios.get(`https://bff-ymzy.onrender.com/user/policies/${userId}`);
         setPolicies(response.data);
       } catch (error) {
         console.log("Failed to retrieve Policies");
@@ -53,7 +53,7 @@ function ClaimInsurance() {
     e.preventDefault();
 
     try{
-        const response = await axios.post('https://claim-management-system.onrender.com/home/claim_insurance', formData);
+        const response = await axios.post('https://bff-ymzy.onrender.com/home/claim_insurance', formData);
         if(response.data.status === 200){
           toast.success(response.data.message);
           navigate('/user', { state: { emailId: emailId } });
@@ -74,7 +74,7 @@ function ClaimInsurance() {
   };
   
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 col-md-8">
       <div className="card" style={{ backgroundColor: `#DCF2F1` }}>
       <div className="card-header text-center" style={{ backgroundColor: `#265073` }}>
             <h2 className="card-title mb-2" style={{ color: 'white' }} >Claim Insurance</h2>

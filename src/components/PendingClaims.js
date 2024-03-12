@@ -11,7 +11,7 @@ function PendingClaims() {
   useEffect(() => {
     const fetchPendingClaims = async () => {
       try {
-        const response = await axios.get('https://claim-management-system.onrender.com/admin/pending_claims');
+        const response = await axios.get('https://bff-ymzy.onrender.com/admin/pending_claims');
           setPendingClaims(response.data);
       } catch (error) {
         toast.error('Failed to retrieve Pending Claims')
@@ -27,7 +27,7 @@ function PendingClaims() {
 
   const handleApprove = async () => {
     try {
-        const response = await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
+        const response = await axios.post('https://bff-ymzy.onrender.com/admin/pending_claims', {
         claimId: selectedClaim.claimId,
         status: "Approved"
       });
@@ -44,7 +44,7 @@ function PendingClaims() {
 
   const handleReject = async () => {
     try {
-        const response = await axios.post('https://claim-management-system.onrender.com/admin/pending_claims', {
+        const response = await axios.post('https://bff-ymzy.onrender.com/admin/pending_claims', {
         claimId: selectedClaim.claimId,
         status: "Rejected"
       });

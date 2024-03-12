@@ -24,7 +24,7 @@ function AddPolicy() {
     e.preventDefault();
     try {
       // Send a POST request to add the policy
-      await axios.post('https://claim-management-system.onrender.com/admin/add_policy', policyData);
+      await axios.post('https://bff-ymzy.onrender.com/admin/add_policy', policyData);
       toast.success('Policy added successfully');
       // Navigate back to the admin route upon successful addition
       navigate('/admin');
@@ -36,7 +36,13 @@ function AddPolicy() {
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4" style={{ color: '#2D9596' }}>Add Policy</h2>
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card">
+          <div className="card-header text-center" style={{ backgroundColor: `#265073` }}>
+            <h2 className="card-title mb-2" style={{ color: 'white' }} >Add Policy</h2>
+            </div>
+            <div className="card-body" style={{ backgroundColor: `#DCF2F1` }}>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="policyNumber" className="form-label" >Policy Number</label>
@@ -58,6 +64,10 @@ function AddPolicy() {
         <Toaster/>
         <Link to="/admin" className="btn btn-secondary ms-2">Cancel</Link>
       </form>
+      </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
