@@ -26,7 +26,7 @@ function Register() {
     event.preventDefault();
 
     try {
-      await axios.post('https://claim-management-system.onrender.com/register', formData);
+      await axios.post('https://bff-ymzy.onrender.com/register', formData);
       toast.success('Registered Successfully');
       // Clear form fields upon successful registration
       setFormData({

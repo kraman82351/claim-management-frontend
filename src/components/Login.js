@@ -22,7 +22,7 @@ const Login = () => {
     event.preventDefault();
     try {
       // Depending on the selected role, call the appropriate API endpoint
-      const url = role === 'admin' ? 'https://claim-management-system.onrender.com/adminlogin' : 'https://claim-management-system.onrender.com/userlogin';
+      const url = role === 'admin' ? 'https://bff-ymzy.onrender.com/adminlogin' : 'https://bff-ymzy.onrender.com/userlogin';
       const response = await axios.post(url, formData);
       if(role === 'admin'){
         toast.success('Admin Login Successful');
